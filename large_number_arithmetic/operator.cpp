@@ -1,43 +1,5 @@
-#include <iostream>
-#include <vector>
+#include "big_num.h"
 
-using namespace std;
-
-vector<int>& naive_mul(const vector<int>& a, int b, int zero_num) {
-    auto out = new vector<int>;
-    int carry = 0;
-    for (auto iter = a.rbegin(); iter != a.rend(); iter++) {
-        out->insert(out->begin(), (*iter) * b + carry);
-        carry = (*out)[0] / 10;
-        (*out)[0] %= 10;
-    }
-    if (carry != 0) {
-        out->insert(out->begin(), carry);
-    }
-    for (int i = 0; i < zero_num; i++) {
-        out->push_back(0);
-    }
-
-    return *out;
-}
-
-class BigNum {
-    bool isNegative = false;
-    vector<int> num;
-
-    friend bool operator<(const BigNum&, const BigNum&);
-    friend BigNum& operator+(const BigNum&, const BigNum&);
-    friend BigNum& operator-(const BigNum&, const BigNum&);
-    friend BigNum& operator*(const BigNum&, const BigNum&);
-    friend BigNum& operator/(const BigNum&, const BigNum&);
-
-    friend istream& operator>>(istream&, BigNum&);
-    friend ostream& operator<<(ostream&, const BigNum&);
-
-public:
-    BigNum() = default;
-    explicit BigNum(int);
-};
 
 istream& operator>>(istream& is, BigNum& bigNum) {
     while(auto i = getchar()) {
@@ -62,19 +24,6 @@ ostream& operator<<(ostream& os, const BigNum& bigNum) {
         cout << i;
     }
     return os;
-}
-
-BigNum::BigNum(int num) {
-    if (num < 0) {
-        this->isNegative = true;
-        num = -num;
-    } else {
-        this->isNegative = false;
-    }
-
-    for (int i = num % 10; num != 0; num /= 10, i = num % 10) {
-        this->num.insert(this->num.begin(), i);
-    }
 }
 
 bool operator<(const BigNum& a, const BigNum& b) {
@@ -261,6 +210,24 @@ BigNum& operator-(const BigNum& a, const BigNum& b) {
     return *o;
 }
 
+vector<int>& naive_mul(const vector<int>& a, int b, int zero_num) {
+    auto out = new vector<int>;
+    int carry = 0;
+    for (auto iter = a.rbegin(); iter != a.rend(); iter++) {
+        out->insert(out->begin(), (*iter) * b + carry);
+        carry = (*out)[0] / 10;
+        (*out)[0] %= 10;
+    }
+    if (carry != 0) {
+        out->insert(out->begin(), carry);
+    }
+    for (int i = 0; i < zero_num; i++) {
+        out->push_back(0);
+    }
+
+    return *out;
+}
+
 BigNum& operator*(const BigNum& a, const BigNum& b) {
     auto out = new BigNum;
     out->num.push_back(0);
@@ -283,13 +250,3 @@ BigNum& operator*(const BigNum& a, const BigNum& b) {
     return *out;
 }
 
-int main() {
-    BigNum a, b;
-    cin >> a >> b;
-
-    auto c = a * b;  // test
-
-    cout << c;
-
-    return 0;
-}
