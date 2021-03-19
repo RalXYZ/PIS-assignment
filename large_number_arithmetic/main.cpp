@@ -6,7 +6,7 @@ int main() {
     BigNum a, b;
     cin >> a >> b;
 
-    auto c = a * b;  // test
+    auto c = a - b;  // test
 
     cout << c;
 

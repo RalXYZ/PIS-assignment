@@ -7,10 +7,13 @@
 using namespace std;
 
 class BigNum {
-    bool isNegative = false;
+    bool is_negative = false;
     vector<int> num;
 
+    static bool compare(const BigNum&, const BigNum&);
     friend bool operator<(const BigNum&, const BigNum&);
+    friend bool operator>(const BigNum&, const BigNum&);
+
     friend BigNum& operator+(const BigNum&, const BigNum&);
     friend BigNum& operator-(const BigNum&, const BigNum&);
     friend BigNum& operator*(const BigNum&, const BigNum&);

@@ -2,10 +2,10 @@
 
 BigNum::BigNum(int num) {
     if (num < 0) {
-        this->isNegative = true;
+        this->is_negative = true;
         num = -num;
     } else {
-        this->isNegative = false;
+        this->is_negative = false;
     }
 
     for (int i = num % 10; num != 0; num /= 10, i = num % 10) {
