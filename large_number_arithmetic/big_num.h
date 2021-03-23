@@ -14,10 +14,12 @@ class BigNum {
     friend bool operator<(const BigNum&, const BigNum&);
     friend bool operator>(const BigNum&, const BigNum&);
 
-    friend BigNum& operator+(const BigNum&, const BigNum&);
-    friend BigNum& operator-(const BigNum&, const BigNum&);
-    friend BigNum& operator*(const BigNum&, const BigNum&);
-    friend BigNum& operator/(const BigNum&, const BigNum&);
+    friend BigNum operator+(const BigNum&, const BigNum&);
+    friend BigNum operator-(const BigNum&, const BigNum&);
+    friend BigNum operator*(const BigNum&, const BigNum&);
+    friend BigNum operator*(const BigNum&, int);
+    friend BigNum operator/(const BigNum&, const BigNum&);
+    friend BigNum operator%(const BigNum&, const BigNum&);
 
     friend istream& operator>>(istream&, BigNum&);
     friend ostream& operator<<(ostream&, const BigNum&);

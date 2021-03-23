@@ -9,6 +9,6 @@ BigNum::BigNum(int num) {
     }
 
     for (int i = num % 10; num != 0; num /= 10, i = num % 10) {
-        this->num.insert(this->num.begin(), i);
+        this->num.push_back(i);
     }
 }
