@@ -211,7 +211,7 @@ BigNum operator/(const BigNum& a, const BigNum& b) {
             a_t.num.erase(a_t.num.end() - buffer.num.size(), a_t.num.end());
             i = a_t.num.rbegin();
             auto temp = buffer - (b * result_digit);
-            a_t.num.insert(a_t.num.begin(), temp.num.begin(), temp.num.end());
+            a_t.num.insert(a_t.num.end(), temp.num.begin(), temp.num.end());
             buffer.num.resize(0);
             buffer.num = temp.num;
         }
@@ -227,4 +227,36 @@ BigNum operator/(const BigNum& a, const BigNum& b) {
     }
 
     return *result;
+}
+
+BigNum operator%(const BigNum& a, const BigNum& b) {
+    BigNum buffer;
+    BigNum a_t;
+    a_t.num = a.num;
+
+    for (auto i = a_t.num.rbegin(); i < a_t.num.rend();) {
+        buffer.num.insert(buffer.num.begin(), *i);
+        int result_digit;
+        for (result_digit = 1; ; result_digit++) {
+            BigNum div_temp = b * result_digit;
+            if (buffer < div_temp) {
+                result_digit -= 1;
+                break;
+            }
+        }
+
+        if (result_digit != 0) {
+            a_t.num.erase(a_t.num.end() - buffer.num.size(), a_t.num.end());
+            i = a_t.num.rbegin();
+            auto temp = buffer - (b * result_digit);
+            a_t.num.insert(a_t.num.end(), temp.num.begin(), temp.num.end());
+            buffer.num.resize(0);
+            buffer.num = temp.num;
+        }
+        else {
+            i++;
+        }
+    }
+
+    return buffer;
 }

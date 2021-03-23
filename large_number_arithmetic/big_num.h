@@ -26,7 +26,13 @@ class BigNum {
 
 public:
     BigNum() = default;
-    explicit BigNum(int);
+    BigNum(int);
+    BigNum(unsigned long long);
+
 };
+
+inline BigNum operator"" _b(unsigned long long num) {
+    return num;
+}
 
 #endif //SEC2021_HW2_BIG_NUM_H

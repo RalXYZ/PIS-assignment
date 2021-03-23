@@ -12,3 +12,11 @@ BigNum::BigNum(int num) {
         this->num.push_back(i);
     }
 }
+
+BigNum::BigNum(unsigned long long num) {
+    this->is_negative = false;
+
+    for (unsigned long long i = num % 10; num != 0; num /= 10, i = num % 10) {
+        this->num.push_back(i);
+    }
+}
