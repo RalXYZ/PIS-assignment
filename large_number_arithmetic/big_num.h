@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ class BigNum {
     friend istream& operator>>(istream&, BigNum&);
     friend ostream& operator<<(ostream&, const BigNum&);
 
+    friend BigNum operator"" _b(const char*);
+
 public:
     BigNum() = default;
     BigNum(int);
@@ -33,6 +36,18 @@ public:
 
 inline BigNum operator"" _b(unsigned long long num) {
     return num;
+}
+
+inline BigNum operator"" _b(const char *num) {
+    BigNum result;
+    for (; *num != '\0' ; num++) {
+        if (isdigit(*num)) {
+            result.num.push_back(*num - '0');
+        } else {
+            throw invalid_argument("发生肾么事了");
+        }
+    }
+    return result;
 }
 
 #endif //SEC2021_HW2_BIG_NUM_H
